@@ -2,24 +2,22 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-// is a valid hex sequence
-
-int is_digit(char c)
+int is_a_digit(char c)
 {
     return (c >= '0' && c <= '9');
 }
 
-int is_lower_case_hexsec(char c)
+int is_valid_lowercase(char c)
 {
     return (c >= 'a' && c <= 'f');
 }
 
-int is_upper_case_hexsec(char c)
+int is_valid_uppercase(char c)
 {
     return (c >= 'A' && c <= 'F');
 }
 
-int atoi_base(const char *str, int str_base)
+int	ft_atoi_base(const char *str, int str_base)
 {
     int sign = 1;
     int result = 0;
@@ -32,18 +30,24 @@ int atoi_base(const char *str, int str_base)
     }
     while (*str)
     {
-        if (is_digit(*str))
+        if (is_a_digit(*str))
             digit = *str - '0';
-        else if (is_lower_case_hexsec(*str))
+        else if (is_valid_lowercase(*str))
             digit = *str - 'a' + 10;
-        else if (is_upper_case_hexsec(*str))
+        else if (is_valid_uppercase(*str))
             digit = *str - 'A' + 10;
-        else 
+        else
             break;
         if (digit >= str_base)
             break;
         result = result * str_base + digit;
         str++;
     }
-    return result * sign;
+    return (result * sign);
+}
+
+int main(void)
+{
+    printf("%d", ft_atoi_base("1A", 16));
+    return (0);
 }
